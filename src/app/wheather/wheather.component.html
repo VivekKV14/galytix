@@ -1,0 +1,54 @@
+<div *ngIf="!loading; else loadingTpl">
+  <div class="back-button">
+    <a routerLink="/">⬅ Back To Country List</a>
+    <div>
+      <label for="unitSelect">Select Unit:</label>
+      <select id="unitSelect" [(ngModel)]="selectedUnit" (change)="getWeatherData()">
+        <option value="metric">Metric (°C, km/h)</option>
+        <option value="imperial">Imperial (°F, mph)</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="weatherData; else errorTpl" class="container">
+    <div class="weather-card">
+      <div class="city-info">
+        ({{countryData?.capital[0]}}) {{countryData.name?.common}}
+      </div>
+      <div class="weather-icon">
+        <img [src]="weatherData.iconUrl" alt="weather">
+      </div>
+      <div class="weather-body">
+        <div class="temperature">
+          <h1>{{ weatherData?.main?.temp || '-' }}{{unitValue[selectedUnit].temp}}</h1>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail">
+            <span class="label">Wind:</span>
+            <span class="value">{{ weatherData?.wind?.speed || '-' }} {{unitValue[selectedUnit].speed}}</span>
+          </div>
+          <div class="detail">
+            <span class="label">Clouds:</span>
+            <span class="value">{{ weatherData?.clouds?.all || '-' }}%</span>
+          </div>
+          <div class="detail">
+            <span class="label">Humidity:</span>
+            <span class="value">{{ weatherData?.main?.humidity || '-' }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loader-container">
+    <h3>Loading Weather Data, Please Wait.......</h3>
+  </div>
+</ng-template>
+
+<ng-template #errorTpl>
+  <div class="error">
+    Some Error Occured while getting data
+  </div>
+</ng-template>

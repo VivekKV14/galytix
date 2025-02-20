@@ -1,0 +1,49 @@
+<div class="search-container">
+  <input [formControl]="searchControl" type="text" placeholder="Search By Country Name" />
+</div>
+<div class="table-view" *ngIf="!isLoading; else loading">
+  <table *ngIf="filteredList?.length; else noDataFound ">
+    <thead>
+      <tr>
+        <th>Flag</th>
+        <th>Name
+          <span (click)="sortData()" class="sorting-ic">
+            <i class="up-sort"><svg width="9" height="5" viewBox="0 0 9 5" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.375 0L8.75 5H0L4.375 0Z" [attr.fill]="currSortOrder === 1 ? '#fd9230' :'#999999'">
+                </path>
+              </svg></i>
+            <i class="down-sort"><svg width="9" height="5" viewBox="0 0 9 5" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.375 0L8.75 5H0L4.375 0Z" [attr.fill]="currSortOrder === -1 ? '#fd9230' :'#999999'"></path>
+              </svg></i>
+          </span>
+        </th>
+        <th>Capital</th>
+        <th>Continents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of filteredList" (click)="getCountryWeatherData(country)">
+        <td>{{country?.flag}}</td>
+        <td>{{country?.name?.common}}</td>
+        <td>{{country?.capital?.join(', ') || '-'}}</td>
+        <td>{{country?.continents?.join(', ')}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>
+  <div class="container">
+    <h3>Loading Countries List...</h3>
+  </div>
+</ng-template>
+
+<ng-template #noDataFound>
+  <div class="container">
+    <h4>
+      No Data Country for tha particular search
+    </h4>
+  </div>
+</ng-template>

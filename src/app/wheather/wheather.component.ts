@@ -22,7 +22,6 @@ export class WheatherComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.country) {
         this.countryData = JSON.parse(params.country);
-        console.log(this.countryData);
         this.getWeatherData();
       } else {
         this.loading = false;
@@ -39,7 +38,6 @@ export class WheatherComponent implements OnInit {
     }
     this.data.getWeatherData(cityInfo, this.selectedUnit).subscribe(res => {
       this.weatherData = res;
-      console.log(res);
       this.weatherData.iconUrl = `https://openweathermap.org/img/wn/${res.weather[0].icon}.png`
       this.loading = false;
     })

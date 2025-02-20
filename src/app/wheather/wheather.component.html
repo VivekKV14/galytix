@@ -16,6 +16,7 @@
       </div>
       <div class="weather-icon">
         <img [src]="weatherData.iconUrl" alt="weather">
+        <span>{{weatherData?.weather[0]?.main}}</span>
       </div>
       <div class="weather-body">
         <div class="temperature">
@@ -34,6 +35,14 @@
           <div class="detail">
             <span class="label">Humidity:</span>
             <span class="value">{{ weatherData?.main?.humidity || '-' }}%</span>
+          </div>
+          <div class="detail">
+            <span class="label">Max. Temperature:</span>
+            <span class="value">{{ weatherData?.main?.temp_max || '-' }}{{unitValue[selectedUnit].temp}}</span>
+          </div>
+          <div class="detail">
+            <span class="label">Min. Temperature:</span>
+            <span class="value">{{ weatherData?.main?.temp_min || '-' }}{{unitValue[selectedUnit].temp}}</span>
           </div>
         </div>
       </div>
